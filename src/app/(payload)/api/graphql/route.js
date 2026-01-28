@@ -1,4 +1,4 @@
 /* THIS FILE IS FOR PAYLOAD GRAPHQL SUPPORT */
-import { GRAPHQL_POST, GRAPHQL_GET } from '@payloadcms/next/routes'
+import { GRAPHQL_POST, GRAPHQL_PLAYGROUND_GET } from '@payloadcms/next/routes'
 
-export { GRAPHQL_POST as POST, GRAPHQL_GET as GET }
+export { GRAPHQL_POST as POST, GRAPHQL_PLAYGROUND_GET as GET }
