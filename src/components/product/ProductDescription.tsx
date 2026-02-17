@@ -1,14 +1,15 @@
 'use client'
 import type { Product, Variant } from '@/payload-types'
 
-import { RichText } from '@/components/RichText'
 import { AddToCart } from '@/components/Cart/AddToCart'
 import { Price } from '@/components/Price'
-import React, { Suspense } from 'react'
+import { RichText } from '@/components/RichText'
+import { Suspense } from 'react'
 
-import { VariantSelector } from './VariantSelector'
-import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
 import { StockIndicator } from '@/components/product/StockIndicator'
+import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
+import { ProductCustomization } from './ProductCustomization'
+import { VariantSelector } from './VariantSelector'
 
 export function ProductDescription({ product }: { product: Product }) {
   const { currency } = useCurrency()
@@ -81,6 +82,9 @@ export function ProductDescription({ product }: { product: Product }) {
           <StockIndicator product={product} />
         </Suspense>
       </div>
+
+      {/* Visual Customization Section */}
+      <ProductCustomization />
 
       <div className="flex items-center justify-between">
         <Suspense fallback={null}>

@@ -1,16 +1,18 @@
 'use client'
-import { CMSLink } from '@/components/Link'
+
 import { Cart } from '@/components/Cart'
 import { OpenCartButton } from '@/components/Cart/OpenCart'
+import { CMSLink } from '@/components/Link'
+import { SearchIcon, User } from 'lucide-react'
 import Link from 'next/link'
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 
-import { MobileMenu } from './MobileMenu'
 import type { Header } from 'src/payload-types'
+import { MobileMenu } from './MobileMenu'
 
-import { LogoIcon } from '@/components/icons/logo'
-import { usePathname } from 'next/navigation'
+import { BrandLogo } from '@/components/Logo/BrandLogo'; // Updated to use BrandLogo
 import { cn } from '@/utilities/cn'
+import { usePathname } from 'next/navigation'
 
 type Props = {
   header: Header
@@ -21,46 +23,54 @@ export function HeaderClient({ header }: Props) {
   const pathname = usePathname()
 
   return (
-    <div className="relative z-20 border-b">
-      <nav className="flex items-center md:items-end justify-between container pt-2">
-        <div className="block flex-none md:hidden">
-          <Suspense fallback={null}>
-            <MobileMenu menu={menu} />
-          </Suspense>
-        </div>
-        <div className="flex w-full items-end justify-between">
-          <div className="flex w-full items-end gap-6 md:w-1/3">
-            <Link className="flex w-full items-center justify-center pt-4 pb-4 md:w-auto" href="/">
-              <LogoIcon className="w-6 h-auto" />
-            </Link>
-            {menu.length ? (
-              <ul className="hidden gap-4 text-sm md:flex md:items-center">
-                {menu.map((item) => (
-                  <li key={item.id}>
-                    <CMSLink
-                      {...item.link}
-                      size={'clear'}
-                      className={cn('relative navLink', {
-                        active:
-                          item.link.url && item.link.url !== '/'
-                            ? pathname.includes(item.link.url)
-                            : false,
-                      })}
-                      appearance="nav"
-                    />
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-
-          <div className="flex justify-end md:w-1/3 gap-4">
-            <Suspense fallback={<OpenCartButton />}>
-              <Cart />
+    <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md dark:bg-black/80 dark:border-white/10">
+      <div className="container h-20 flex items-center justify-between">
+        {/* Left: Mobile Menu & Logo */}
+        <div className="flex items-center gap-4">
+          <div className="block md:hidden">
+            <Suspense fallback={null}>
+              <MobileMenu menu={menu} />
             </Suspense>
           </div>
+          <Link href="/" className="flex items-center gap-2">
+            <BrandLogo />
+          </Link>
         </div>
-      </nav>
-    </div>
+
+        {/* Center: Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
+          {menu.length > 0 &&
+            menu.map((item) => (
+              <CMSLink
+                key={item.id}
+                {...item.link}
+                appearance="link"
+                className={cn(
+                  'text-base font-medium transition-colors hover:text-[hsl(var(--brand-primary))]',
+                  item.link.url && pathname.includes(item.link.url)
+                    ? 'text-[hsl(var(--brand-primary))]'
+                    : 'text-neutral-600 dark:text-neutral-300'
+                )}
+              />
+            ))
+          }
+        </nav>
+
+        {/* Right: Actions (Search, Account, Cart) */}
+        <div className="flex items-center gap-4">
+          <Link href="/shop" className="p-2 text-neutral-600 hover:text-[hsl(var(--brand-primary))] dark:text-neutral-300 transition-colors" aria-label="Search">
+            <SearchIcon className="w-5 h-5" />
+          </Link>
+
+          <Link href="/account" className="hidden sm:block p-2 text-neutral-600 hover:text-[hsl(var(--brand-primary))] dark:text-neutral-300 transition-colors" aria-label="Account">
+            <User className="w-5 h-5" />
+          </Link>
+
+          <Suspense fallback={<OpenCartButton />}>
+            <Cart />
+          </Suspense>
+        </div>
+      </div>
+    </header>
   )
 }

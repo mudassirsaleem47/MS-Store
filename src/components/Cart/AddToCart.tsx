@@ -5,6 +5,7 @@ import type { Product, Variant } from '@/payload-types'
 
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import clsx from 'clsx'
+import { ShoppingCart } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 import React, { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
@@ -97,15 +98,20 @@ export function AddToCart({ product }: Props) {
   return (
     <Button
       aria-label="Add to cart"
-      variant={'outline'}
-      className={clsx({
-        'hover:opacity-90': true,
+      size="lg"
+      className={clsx('w-full md:w-auto min-w-[200px] flex items-center gap-2', {
+        'opacity-50 cursor-not-allowed': disabled || isLoading,
       })}
       disabled={disabled || isLoading}
       onClick={addToCart}
-      type="submit"
+      type="button" // Changed from submit to button to prevent form submission issues
     >
-      Add To Cart
+      {isLoading ? (
+        <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+      ) : (
+        <ShoppingCart className="w-5 h-5 mr-1" />
+      )}
+      {isLoading ? 'Adding...' : 'Add To Cart'}
     </Button>
   )
 }

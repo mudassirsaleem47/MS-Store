@@ -21,10 +21,14 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       data-theme="dark"
     >
       <div className="container mb-8 z-10 relative flex items-center justify-center">
-        <div className="max-w-146 md:text-center">
-          {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
+        <div className="max-w-[36.5rem] md:text-center text-center">
+          {richText && (
+            <div className="hero-text-shadow">
+              <RichText className="mb-6 relative z-10" data={richText} enableGutter={false} />
+            </div>
+          )}
           {Array.isArray(links) && links.length > 0 && (
-            <ul className="flex md:justify-center gap-4">
+            <ul className="flex justify-center gap-4">
               {links.map(({ link }, i) => {
                 return (
                   <li key={i}>
@@ -38,7 +42,11 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       </div>
       <div className="min-h-[80vh] select-none">
         {media && typeof media === 'object' && (
-          <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
+          <React.Fragment>
+            <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
+            <div className="absolute inset-0 bg-black/40 pointer-events-none z-0" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none z-0" />
+          </React.Fragment>
         )}
       </div>
     </div>
