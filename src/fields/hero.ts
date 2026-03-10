@@ -35,6 +35,10 @@ export const hero: Field = {
           label: 'Low Impact',
           value: 'lowImpact',
         },
+        {
+          label: 'Carousel',
+          value: 'carousel',
+        },
       ],
       required: true,
     },
@@ -52,10 +56,16 @@ export const hero: Field = {
         },
       }),
       label: false,
+      admin: {
+        condition: (_, { type } = {}) => type !== 'carousel',
+      },
     },
     linkGroup({
       overrides: {
         maxRows: 2,
+        admin: {
+          condition: (_, { type } = {}) => type !== 'carousel',
+        },
       },
     }),
     {
@@ -66,6 +76,41 @@ export const hero: Field = {
       },
       relationTo: 'media',
       required: true,
+    },
+    {
+      name: 'slides',
+      type: 'array',
+      minRows: 1,
+      maxRows: 10,
+      labels: {
+        singular: 'Slide',
+        plural: 'Slides',
+      },
+      admin: {
+        condition: (_, { type } = {}) => type === 'carousel',
+      },
+      fields: [
+        {
+          name: 'media',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'richText',
+          type: 'richText',
+          editor: lexicalEditor({
+            features: ({ rootFeatures }) => {
+              return [
+                ...rootFeatures,
+                HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                FixedToolbarFeature(),
+                InlineToolbarFeature(),
+              ]
+            },
+          }),
+        },
+      ]
     },
   ],
   label: false,
