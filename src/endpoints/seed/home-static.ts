@@ -79,7 +79,134 @@ export const homeStaticData: () => RequiredDataFromCollectionSlug<'pages'> = () 
         },
       },
     },
-    layout: [],
+    layout: [
+      {
+        blockType: 'archive',
+        introContent: {
+          root: {
+            type: 'root',
+            children: [
+              {
+                type: 'heading',
+                children: [
+                  {
+                    type: 'text',
+                    detail: 0,
+                    format: 0,
+                    mode: 'normal',
+                    style: '',
+                    text: 'New Arrivals',
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                tag: 'h2',
+                version: 1,
+              },
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    detail: 0,
+                    format: 0,
+                    mode: 'normal',
+                    style: '',
+                    text: 'Explore our latest collection of premium products curated just for you.',
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                textFormat: 0,
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        },
+        populateBy: 'collection',
+        relationTo: 'products',
+        limit: 8,
+        categories: [],
+      },
+      {
+        blockType: 'cta',
+        links: [
+          {
+            link: {
+              type: 'custom',
+              url: '/shop',
+              label: 'Shop Now',
+              appearance: 'default',
+            }
+          },
+          {
+            link: {
+              type: 'custom',
+              url: '/account',
+              label: 'Create Account',
+              appearance: 'outline',
+            }
+          }
+        ],
+        richText: {
+          root: {
+            type: 'root',
+            children: [
+              {
+                type: 'heading',
+                children: [
+                  {
+                    type: 'text',
+                    detail: 0,
+                    format: 0,
+                    mode: 'normal',
+                    style: '',
+                    text: 'Join Our Community',
+                    version: 1,
+                  }
+                ],
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                tag: 'h2',
+                version: 1,
+              },
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    detail: 0,
+                    format: 0,
+                    mode: 'normal',
+                    style: '',
+                    text: 'Sign up today and get exclusive access to new drops and special offers.',
+                    version: 1,
+                  }
+                ],
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                textFormat: 0,
+                version: 1,
+              }
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            version: 1,
+          }
+        }
+      }
+    ],
     meta: {
       description: 'An open-source ecommerce site built with Payload and Next.js.',
       title: 'Payload Ecommerce Template',

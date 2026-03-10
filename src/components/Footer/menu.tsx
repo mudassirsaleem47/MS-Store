@@ -18,7 +18,7 @@ export function FooterMenu({ menu }: Props) {
               <CMSLink
                 appearance="inline"
                 {...item.link}
-                className="text-neutral-400 hover:text-white hover:translate-x-1 transition-all duration-300 inline-block"
+                className="text-neutral-400 hover:text-white duration-300 inline-block"
               />
             </li>
           )
